@@ -1,0 +1,10 @@
+#container {
+  margin-top: 50px;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+
+#container > div {
+  justify-self: center;
+}

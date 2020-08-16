@@ -14,9 +14,7 @@ const CanvasVideoFrameCollection: React.FC<CanvasVideoFrameCollectionProps> = ({
   showFrameAtIndex,
   videoSrc,
   width,
-  height,
-}) => {
-
+  height }) => {
   const [loading, setLoading] = useState(true)
   const collectionRef = useRef<Array<ReactElement> | null>(null)
 
@@ -31,7 +29,7 @@ const CanvasVideoFrameCollection: React.FC<CanvasVideoFrameCollectionProps> = ({
       />)}
       )
       setLoading(false)
-  }, [])
+  }, [currentTimes, height, width, videoSrc])
 
   return (
     <>

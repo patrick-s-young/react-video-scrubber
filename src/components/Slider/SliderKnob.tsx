@@ -10,14 +10,15 @@ const SliderKnob = forwardRef<HTMLDivElement, SliderKnobProps>(
     const [isSliding, setIsSliding] = useState(false)
     const isSlidingRef = useRef(isSliding);
 
+    /* debug - track number of renders
     const renderCounter = useRef(1);
     console.log(`SliderKnob render count: ${renderCounter.current}`)
     renderCounter.current += 1;
+    */
 
     const onMouseMoveHandler = useCallback(
       (e: MouseEvent) => {
         e.preventDefault();
-        //console.log(`onMouseMoveHandler, isSlidingRef.current: ${isSlidingRef.current}`)
         if (isSlidingRef.current === true && e.movementX !== 0) {
           onSlideCallback(e.movementX);
         }
@@ -42,7 +43,6 @@ const SliderKnob = forwardRef<HTMLDivElement, SliderKnobProps>(
     );
 
     useEffect(() => {
-      console.log(`SliderKnob useEffect isSliding: ${isSliding}`)
       isSlidingRef.current = isSliding
       if (isSliding === true) {
         window.addEventListener('mouseup', onMouseUpHandler);

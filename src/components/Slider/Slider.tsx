@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useLayoutEffect } from 'react'
 import SliderKnob from './SliderKnob'
 import SliderTrack from './SliderTrack'
 import './slider.css'
@@ -41,8 +41,7 @@ const Slider: React.FC<SliderProps> = ({ sliderCallback }) => {
     }
   } 
 
-  const handleResize = () => {
-    console.log(`handleResize`)
+  useLayoutEffect(() => {
     if (trackDivRef.current !== null && knobDivRef.current !== null) {
       trackAttrRef.current = {
         element: trackDivRef.current,
@@ -56,13 +55,7 @@ const Slider: React.FC<SliderProps> = ({ sliderCallback }) => {
         style: knobDivRef.current.style,      
       }
     }
-  }
-
-  useEffect(() => {
-    if (trackDivRef.current !== null && knobDivRef.current !== null) handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [trackDivRef, knobDivRef]);
+  }, []);
 
 
   return (
