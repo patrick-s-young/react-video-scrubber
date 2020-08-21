@@ -1,7 +1,7 @@
-import React, { useRef, useLayoutEffect } from 'react'
-import SliderKnob from './SliderKnob'
-import SliderTrack from './SliderTrack'
-import './slider.css'
+import React, { useRef, useLayoutEffect, useCallback } from 'react';
+import SliderKnob from './SliderKnob';
+import SliderTrack from './SliderTrack';
+import './slider.css';
 
 type TrackAttrRef = {
   element: HTMLDivElement,
@@ -21,25 +21,24 @@ interface SliderProps {
 }
 
 const Slider: React.FC<SliderProps> = ({ sliderCallback }) => {
-  const scalerValue = useRef<number>(0.5);
-  const trackDivRef = useRef<HTMLDivElement | null>(null)
-  const knobDivRef = useRef<HTMLDivElement | null>(null)
-  const trackAttrRef = useRef<TrackAttrRef | null>(null)
-  const knobAttrRef = useRef<KnobAttrRef | null>(null)
+  const scalerValue = useRef<number>(0.5); // why ref?
+  const trackDivRef = useRef<HTMLDivElement | null>(null);
+  const knobDivRef = useRef<HTMLDivElement | null>(null);
+  const trackAttrRef = useRef<TrackAttrRef | null>(null);
+  const knobAttrRef = useRef<KnobAttrRef | null>(null);
 
-
-  const onSlide = (movementX: number) => {
+  const onSlide = useCallback((movementX: number) => {
     const track = trackAttrRef.current;
     const knob = knobAttrRef.current;
     if (knob != null && track != null) {
-      const offsetLeft =  knob.element.offsetLeft + movementX;
+      const offsetLeft = knob.element.offsetLeft + movementX;
       if (offsetLeft > knob.minX && offsetLeft < knob.maxX) {
         knob.style.left = offsetLeft + 'px';
         scalerValue.current = (offsetLeft - knob.minX) / track.width;
-        sliderCallback(scalerValue.current)
+        sliderCallback(scalerValue.current);
       }
     }
-  } 
+  }, [sliderCallback]); 
 
   useLayoutEffect(() => {
     if (trackDivRef.current !== null && knobDivRef.current !== null) {
@@ -57,7 +56,6 @@ const Slider: React.FC<SliderProps> = ({ sliderCallback }) => {
     }
   }, []);
 
-
   return (
     <div className='slider'>
       <SliderTrack 
@@ -70,4 +68,4 @@ const Slider: React.FC<SliderProps> = ({ sliderCallback }) => {
   )
 }
 
-export default Slider
+export default Slider;

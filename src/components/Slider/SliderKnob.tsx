@@ -1,23 +1,15 @@
-import React, { useState, useCallback, useEffect, useRef, forwardRef } from 'react'
-import './slider.css'
+import React, { useState, useCallback, useEffect, useRef, forwardRef } from 'react';
+import './slider.css';
 
 type SliderKnobProps = {
   onSlideCallback: (movementX: number) => void
 }
 
-const SliderKnob = forwardRef<HTMLDivElement, SliderKnobProps>(
-  ({ onSlideCallback }, ref) => {
-    const [isSliding, setIsSliding] = useState(false)
+const SliderKnob = forwardRef<HTMLDivElement, SliderKnobProps>(({ onSlideCallback }, ref) => {
+    const [isSliding, setIsSliding] = useState(false);
     const isSlidingRef = useRef(isSliding);
 
-    /* debug - track number of renders
-    const renderCounter = useRef(1);
-    console.log(`SliderKnob render count: ${renderCounter.current}`)
-    renderCounter.current += 1;
-    */
-
-    const onMouseMoveHandler = useCallback(
-      (e: MouseEvent) => {
+    const onMouseMoveHandler = useCallback((e: MouseEvent) => {
         e.preventDefault();
         if (isSlidingRef.current === true && e.movementX !== 0) {
           onSlideCallback(e.movementX);
@@ -26,16 +18,14 @@ const SliderKnob = forwardRef<HTMLDivElement, SliderKnobProps>(
       [onSlideCallback],
     );
 
-    const onMouseUpHandler = useCallback(
-      (e: MouseEvent) => {
+    const onMouseUpHandler = useCallback((e: MouseEvent) => {
         e.preventDefault();
         setIsSliding(false);
       },
       [],
     );
 
-    const onMouseDownHandler = useCallback(
-      (e: React.MouseEvent<HTMLDivElement>) => {
+    const onMouseDownHandler = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         setIsSliding(true);
       },
@@ -43,7 +33,7 @@ const SliderKnob = forwardRef<HTMLDivElement, SliderKnobProps>(
     );
 
     useEffect(() => {
-      isSlidingRef.current = isSliding
+      isSlidingRef.current = isSliding;
       if (isSliding === true) {
         window.addEventListener('mouseup', onMouseUpHandler);
         window.addEventListener('mousemove', onMouseMoveHandler);
@@ -56,7 +46,8 @@ const SliderKnob = forwardRef<HTMLDivElement, SliderKnobProps>(
         window.removeEventListener('mouseup', onMouseUpHandler);
         window.removeEventListener('mousemove', onMouseMoveHandler);
       }
-    }, [isSliding, onMouseUpHandler, onMouseMoveHandler])
+    }, 
+    [isSliding, onMouseUpHandler, onMouseMoveHandler]);
 
     return (
       <div
