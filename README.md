@@ -19,6 +19,9 @@ npm start
 * [TypeScript](https://www.typescriptlang.org/) - Extends JavaScript by adding types to the language.
 * [webpack](https://webpack.js.org/) - Static module builder.
 
+## Note
+This version is not compatible with WebKit-based browsers.
+
 ## Authors
 
 * **Patrick Young** - [Patrick Young](https://github.com/patrick-s-young)
