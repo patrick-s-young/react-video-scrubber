@@ -1,5 +1,5 @@
 # React Video Scrubber
-![01_screen_shot_8fps](https://user-images.githubusercontent.com/42591798/90859351-ec496f80-e33c-11ea-8e14-26c8b03ee057.gif)
+![05](https://user-images.githubusercontent.com/42591798/90859550-4ba77f80-e33d-11ea-95fd-2c974e32865e.gif)
 # Scrub Video Frames using Array of Canvas Elements
 ![03_main_sequence](https://user-images.githubusercontent.com/42591798/90858701-91634880-e33b-11ea-984c-b63f8655ec01.gif)
 ## Running Locally
