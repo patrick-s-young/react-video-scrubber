@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import CanvasVideoFrameCollection from './CanvasVideoFrameCollection'
-import Slider from '../Slider/Slider'
+import React, { useState, useMemo, useCallback } from 'react';
+import CanvasVideoFrameCollection from './CanvasVideoFrameCollection';
+import Slider from '../Slider/Slider';
 
 interface CanvasVideoFrameScrubberProps {
   videoSrc: string
@@ -17,21 +17,22 @@ const CanvasVideoFrameScrubber: React.FC<CanvasVideoFrameScrubberProps> = ({
   height,
   duration }) => {
   const [showFrameAtIndex, setShowFrameAtIndex] = useState<number>(Math.floor(frameCount / 2));
-  const [currentTimes] = useState<Array<number>>(() => { 
-    const timeIncrement: number = duration / frameCount
-    const currentTimesArr: Array<number> = []
+
+  const currentTimes = useMemo<Array<number>>(() => { 
+    const timeIncrement: number = duration / frameCount;
+    const currentTimesArr: Array<number> = [];
     for (let i = 0; i < frameCount; i++) {
-        currentTimesArr.push(i * timeIncrement + 0.1)
+        currentTimesArr.push(i * timeIncrement + 0.1);
     }
     return currentTimesArr; 
-  })
+  }, [duration, frameCount]);
 
-  const sliderCallback = (scalerValue: number ): void => {
-    const frameIndex = Math.floor(scalerValue * frameCount)
+  const sliderCallback = useCallback((scalerValue: number ): void => {
+    const frameIndex = Math.floor(scalerValue * frameCount);
     if (frameIndex !== showFrameAtIndex) {
-      setShowFrameAtIndex(frameIndex)
+      setShowFrameAtIndex(frameIndex);
     }
-  }
+  }, [frameCount, showFrameAtIndex]);
 
   return (
     <div>
@@ -53,4 +54,4 @@ const CanvasVideoFrameScrubber: React.FC<CanvasVideoFrameScrubberProps> = ({
   );
 }
 
-export default CanvasVideoFrameScrubber
+export default CanvasVideoFrameScrubber;
