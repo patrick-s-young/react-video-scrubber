@@ -1,7 +1,7 @@
 # React Video Scrubber
-## Scrub Video Frames using Array of Canvas Elements
 ![05](https://user-images.githubusercontent.com/42591798/90340502-81e7a680-dfad-11ea-8536-a0536f0a6aaa.gif)
-
+## Scrub Video Frames using Array of Canvas Elements
+![03_main_sequence](https://user-images.githubusercontent.com/42591798/90858701-91634880-e33b-11ea-984c-b63f8655ec01.gif)
 ## Running Locally
 
 Make sure you have [Node.js](http://nodejs.org/) installed.
