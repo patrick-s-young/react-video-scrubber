@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CanvasVideoFrameScrubber from '../components/CanvasVideoFrameScrubber/CanvasVideoFrameScrubber';
+import CanvasVideoFrameScrubber from 'VideoScrubber/CanvasVideoFrameScrubber';
 import { videoSrc, frameCount } from './constants';
 import './App.css';
 
