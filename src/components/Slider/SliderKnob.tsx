@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef, forwardRef } from 'react';
-import './slider.css';
+import 'Slider/slider.css';
 
 type SliderKnobProps = {
   onSlideCallback: (movementX: number) => void

@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react'
-import './slider.css'
+import 'Slider/slider.css'
 
 type Props = {};
 

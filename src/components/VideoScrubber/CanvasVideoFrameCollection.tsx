@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, ReactElement } from 'react';
-import CanvasVideoFrame from './CanvasVideoFrame';
+import CanvasVideoFrame from 'VideoScrubber/CanvasVideoFrame';
 
 interface CanvasVideoFrameCollectionProps {
   currentTimes: Array<number>,

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import CanvasVideoFrameCollection from './CanvasVideoFrameCollection';
-import Slider from '../Slider/Slider';
+import CanvasVideoFrameCollection from 'VideoScrubber/CanvasVideoFrameCollection';
+import Slider from 'Slider/Slider';
 
 interface CanvasVideoFrameScrubberProps {
   videoSrc: string
