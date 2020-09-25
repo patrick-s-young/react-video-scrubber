@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import CanvasVideoFrameCollection from 'VideoScrubber/CanvasVideoFrameCollection';
-import Slider from 'Slider/Slider';
+import './canvasVideoFrameScrubber.css';
 
 interface CanvasVideoFrameScrubberProps {
   videoSrc: string
@@ -27,12 +27,9 @@ const CanvasVideoFrameScrubber: React.FC<CanvasVideoFrameScrubberProps> = ({
     return currentTimesArr; 
   }, [duration, frameCount]);
 
-  const sliderCallback = useCallback((scalerValue: number ): void => {
-    const frameIndex = Math.floor(scalerValue * frameCount);
-    if (frameIndex !== showFrameAtIndex) {
-      setShowFrameAtIndex(frameIndex);
-    }
-  }, [frameCount, showFrameAtIndex]);
+  const onSlideHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      setShowFrameAtIndex(parseInt(e.target.value));
+  }, [showFrameAtIndex]);
 
   return (
     <div>
@@ -45,11 +42,18 @@ const CanvasVideoFrameScrubber: React.FC<CanvasVideoFrameScrubberProps> = ({
           height={height}
         />
       </div>
-      <div>
-        <Slider
-          sliderCallback={sliderCallback}
+      <div className="slidecontainer">
+        <input 
+          type='range'
+          min='0'
+          max={frameCount - 1} 
+          step='1'
+          defaultValue={Math.floor(frameCount / 2)} 
+          className='slider' 
+          onChange={onSlideHandler}
+          data-testid='backgroundSelectorInput'
         />
-      </div>
+    </div>
     </div>
   );
 }
