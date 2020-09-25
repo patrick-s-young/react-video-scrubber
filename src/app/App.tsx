@@ -3,11 +3,8 @@ import CanvasVideoFrameScrubber from 'VideoScrubber/CanvasVideoFrameScrubber';
 import { videoSrc, frameCount } from './constants';
 import './App.css';
 import loadVideoMetadata, { VideoMetadata } from '../utils/loadVideoMetadata';
-<<<<<<< HEAD
 
 
-=======
->>>>>>> release-1.1
 
 const App = () => {
   const [videoData, setVideoData] = useState<VideoMetadata | null>(null); 
