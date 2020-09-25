@@ -4,8 +4,6 @@ import { videoSrc, frameCount } from './constants';
 import './App.css';
 import loadVideoMetadata, { VideoMetadata } from '../utils/loadVideoMetadata';
 
-
-
 const App = () => {
   const [videoData, setVideoData] = useState<VideoMetadata | null>(null); 
 
