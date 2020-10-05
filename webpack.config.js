@@ -17,8 +17,9 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
-      VideoScrubber: path.resolve(__dirname, 'src/components/VideoScrubber/'),
-      Slider: path.resolve(__dirname, 'src/components/Slider')
+      app: path.resolve(__dirname, './src/app/'),
+      features: path.resolve(__dirname, './src/features/'),
+      utils: path.resolve(__dirname, './src/utils/')
     }
   },
 
@@ -49,5 +50,5 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'public')
   },
-  devtool: 'eval-source-map'
+  devtool: 'inline-source-map'
 };
