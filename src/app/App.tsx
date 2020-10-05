@@ -1,51 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import CanvasVideoFrameScrubber from 'VideoScrubber/CanvasVideoFrameScrubber';
-import { videoSrc, frameCount } from './constants';
-import './App.css';
-import loadVideoMetadata, { VideoMetadata } from '../utils/loadVideoMetadata';
+import React from 'react';
+import Scrubber from 'features/videoScrubber/Scrubber';
+import { videoSrc } from 'app/app.config';
+import 'app/app.css';
 
-const App = () => {
-  const [videoData, setVideoData] = useState<VideoMetadata | null>(null); 
+const App: React.FC = () =>
+	<div className='app-container'>
+		<div>
+			SOURCE
+		</div>
+		<div>
+			FRAME SCRUBBER
+		</div>
+		<div> 
+			<video autoPlay muted loop >
+				<source src={videoSrc} type='video/mp4' />  
+			</video>
+		</div>
+		<div>
+			<Scrubber
+				videoSrc={videoSrc}
+			/>
+		</div>
+	</div>
 
-  useEffect(() => {
-    loadVideoMetadata(videoSrc, 2000).then(data => setVideoData(data)).catch(error => console.log(error));
-  }, []);
-
-  return (
-    <div id="container">
-      <div>
-        SOURCE
-      </div>
-      <div>
-        FRAME SCRUBBER
-      </div>
-
-      <div> 
-        { videoData !== null &&
-            <video
-              autoPlay
-              muted
-              loop
-            >
-              <source src={videoSrc} type='video/mp4' />  
-            </video>
-        }
-      </div>
-      <div>
-        { videoData !== null &&
-            <div style={{ width: videoData.videoWidth + 'px'}}>
-              <CanvasVideoFrameScrubber
-                videoSrc={videoSrc}
-                frameCount={frameCount}
-                width={videoData.videoWidth}
-                height={videoData.videoHeight}
-                duration={videoData.duration}
-              />
-            </div>
-        }
-      </div>
-    </div>
-  );
-}
 
 export default App;
