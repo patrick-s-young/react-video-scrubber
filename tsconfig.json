@@ -39,9 +39,10 @@
 		"importHelpers": true,
 		"baseUrl": "./src",
 		"paths": {
-			"VideoScrubber/*": ["components/VideoScrubber/*"],
-			"Slider/*": ["components/Slider/*"]
-		}
+			"app/*": ["app/*"],
+			"features/*": ["features/*"],
+			"utils/*": ["utils/*"]
+		},
 		
 	},
 	"include": ["src/**/*"],
