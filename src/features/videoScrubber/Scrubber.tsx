@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import * as React from 'react';
 import ScrubberFrames from 'features/videoScrubber/ScrubberFrames';
 import ScrubberSlider from 'features/videoScrubber/ScrubberSlider';
 import loadVideoMetadata from 'utils/loadVideoMetadata';
@@ -20,7 +21,7 @@ const Scrubber: React.FC<ScrubberProps> = ({
   useEffect(() => {
     loadVideoMetadata(videoSrc, 2000)
       .then(setVideoData)
-      .catch((err: Error) => setError(err.toString()));
+      .catch(setError);
   }, []);
 
   return (
