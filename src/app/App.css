@@ -1,10 +1,12 @@
-#container {
+.app-container {
   margin-top: 50px;
   display: grid;
   grid-template-rows: 50px 1fr;
   grid-template-columns: 1fr 1fr;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: larger;
 }
 
-#container > div {
+.app-container > div {
   justify-self: center;
 }

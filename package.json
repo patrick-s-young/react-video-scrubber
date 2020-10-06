@@ -1,46 +1,22 @@
 {
   "name": "react-video-scrubber",
-  "version": "1.1.0",
-  "description": "React component for generating still frames from a video source",
-  "keywords": ["react", "canvas", "video"],
-  "homepage": "https://github.com/patrick-s-young/react-video-scrubber#readme",
-  "bugs": {
-    "url": "https://github.com/patrick-s-young/react-video-scrubber/issues",
-     "email": "patrick@bigeyeball.co"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Patrick S. Young",
-    "email": "patrick@bigeyeball.co",
-    "url": "https://www.linkedin.com/in/patrick-s-young"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "version": "1.3.0",
+  "description": "React canvas-enabled video frame scrubber",
   "repository": {
     "type": "git",
-    "url": "https://github.com/patrick-s-young/react-video-scrubbe"
+    "url": "https://github.com/patrick-s-young/react-video-scrubber.git"
   },
+  "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "bundle": "webpack",
+    "test": "jest",
     "start": "webpack-dev-server --mode development --open --hot",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --mode production",
+    "check-types": "tsc"
   },
-  "dependencies": {
-    "@types/react": "^16.9.48",
-    "@types/react-dom": "^16.9.8",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  },
+  "keywords": [],
+  "author": "Patrick S. Young",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.11.4",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -48,9 +24,11 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
-    "awesome-typescript-loader": "^5.2.1",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.4",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/parser": "^4.0.0",
+    "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^4.2.2",
     "eslint": "^7.7.0",
@@ -61,10 +39,26 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
     "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.4.2",
+    "jest-webpack-resolver": "^0.3.0",
     "style-loader": "^1.2.1",
     "typescript": "^4.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "@types/react": "^16.9.48",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
+    "detect-browser": "^5.1.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1"
+  },
+  "jestWebpackResolver": {
+    "silent": true,
+    "webpackConfig": "webpack.config.js"
   }
 }
