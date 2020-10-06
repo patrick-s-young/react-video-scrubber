@@ -18,11 +18,9 @@ npm start
 ## Built With
 
 * [React](https://react-cn.github.io/react/downloads.html) - JavaScript UI library.
+* [Redux Toolkit](https://redux-toolkit.js.org/) - Opinionated, batteries-included toolset for efficient Redux development.
 * [TypeScript](https://www.typescriptlang.org/) - Extends JavaScript by adding types to the language.
 * [webpack](https://webpack.js.org/) - Static module builder.
-
-## Note
-This version is not compatible with WebKit-based browsers.
 
 ## Authors
 
