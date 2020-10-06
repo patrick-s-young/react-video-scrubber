@@ -1,7 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 import Scrubber from 'features/videoScrubber/Scrubber';
-import { videoSrc } from 'app/app.config';
-import 'app/app.css';
+import { videoSrc, scrubberFramesMax } from 'app/app.config';
+import 'app/App.css';
 
 const App: React.FC = () =>
 	<div className='app-container'>
@@ -18,7 +18,8 @@ const App: React.FC = () =>
 		</div>
 		<div>
 			<Scrubber
-				videoSrc={videoSrc}
+        videoSrc={videoSrc}
+        scrubberFramesMax={scrubberFramesMax}
 			/>
 		</div>
 	</div>

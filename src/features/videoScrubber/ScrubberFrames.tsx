@@ -18,8 +18,8 @@ const ScrubberFrames: React.FC<ScrubberFramesProps> = ({
   width,
   height,
   duration,
-  scrubberFramesMax }) => {
-		
+  scrubberFramesMax
+}) => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const canvasFramesRef = useRef<Array<HTMLCanvasElement>>([]);
 	const [canvasFramesInitialized, setCanvasFramesInitialized] = useState<boolean>(false);
