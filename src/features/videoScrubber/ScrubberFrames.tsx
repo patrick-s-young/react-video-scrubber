@@ -1,6 +1,7 @@
-import React, { useRef, useEffect, useMemo, useState } from 'react';
+import { useRef, useEffect, useMemo, useState } from 'react';
+import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from 'app/rootReducer';
+import type { RootState } from 'app/rootReducer';
 import videoFramesToCanvasArray from 'utils/videoFramesToCanvasArray';
 import 'features/videoScrubber/scrubberStyles.css';
 
@@ -18,44 +19,43 @@ const ScrubberFrames: React.FC<ScrubberFramesProps> = ({
   width,
   height,
   duration,
-  scrubberFramesMax }) => {
-		
+  scrubberFramesMax
+}) => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
-	const canvasFramesRef = useRef<Array<HTMLCanvasElement>>([]);
-	const [canvasFramesInitialized, setCanvasFramesInitialized] = useState<boolean>(false);
-	const { currentScrubberFrame } = useSelector(
-		( state: RootState ) => state.scrubber
+  // avoid refs when possible--canvasFrames can be state. perhaps consider moving to redux?
+  const [canvasFrames, setCanvasFrames] = useState<Array<HTMLCanvasElement>>([]);
+	const currentScrubberFrame = useSelector<RootState, number>(
+		(state) => state.scrubber.currentScrubberFrame
 	);
-	
+
 	// Create array of temporal offsets into video by dividing its duration
 	// by the number of video frame samples that can be scrubbed.
 	// The more frame samples, the smoother the scrubbing.
 	const currentTimes = useMemo<Array<number>>(() => { 
     const timeIncrement: number = duration / scrubberFramesMax;
-    const currentTimes: Array<number> = [];
-    for (let i = 0; i < scrubberFramesMax; i++) currentTimes.push(i * timeIncrement + 0.1);
-		return currentTimes 
-		}, [duration, scrubberFramesMax]
-	);
+    // pre-allocation has better performance than pushing
+    const currentTimes: Array<number> = new Array(scrubberFramesMax);
+    for (let i = 0; i < currentTimes.length; i++) currentTimes[i] = i * timeIncrement + 0.1;
+		return currentTimes;
+  }, [duration, scrubberFramesMax]);
 
-	// Create and array of canvas elements, each holding a frame of video
+	// Create an array of canvas elements, each holding a frame of video
 	// that corresponds to a temporal offset in the 'currentTimes' array.
-	useMemo(() => {
+	useEffect(() => {
 		videoFramesToCanvasArray(
 			videoSrc,
 			currentTimes,
 			width,
-			height)
-		.then(canvasFrames => canvasFramesRef.current = canvasFrames as Array<HTMLCanvasElement>)
-		.then(ignoredValue => setCanvasFramesInitialized(true))
+      height
+    ).then(setCanvasFrames);
 	}, [videoSrc, currentTimes, width, height]);
 
 	useEffect(() => {
-		if (canvasRef.current !== null && canvasFramesInitialized) {
+		if (canvasRef.current !== null && canvasFrames.length) {
 			const ctx = canvasRef.current.getContext('2d');
-			ctx?.drawImage(canvasFramesRef.current[currentScrubberFrame], 0, 0);
+			ctx?.drawImage(canvasFrames[currentScrubberFrame], 0, 0);
 		}
-	}, [currentScrubberFrame, canvasFramesInitialized]);
+	}, [canvasFrames, currentScrubberFrame]);
 
 	return(
 		<div className='scrubberFrames-container'>
