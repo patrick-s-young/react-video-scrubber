@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		// Target latest version of ECMAScript.
-		"target": "esnext",
+		"target": "ESNext",
 		// path to output directory
 		"outDir": "./dist/",
 		// enable strict null checks as a best practice
@@ -19,13 +19,10 @@
 		// use typescript to transpile jsx to js
 		"jsx": "react",
 		"lib": [
-			"es2015",
-			"dom.iterable",
-			"es2016.array.include",
-			"es2017.object",
-			"dom"
+			"ESNext",
+			"DOM"
 		],
-		"module": "es6",
+		"module": "ESNext",
 		"removeComments": true,
 		"alwaysStrict": true,
 		"allowUnreachableCode": false,
@@ -43,8 +40,7 @@
 			"features/*": ["features/*"],
 			"utils/*": ["utils/*"]
 		},
-		
 	},
 	"include": ["src/**/*"],
-	"exclude": ["node_modules"s]
+	"exclude": ["node_modules"]
 }
