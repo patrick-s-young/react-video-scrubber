@@ -6,8 +6,8 @@ interface VideoFramesToCanvasArray {
   (
     videoSrc: string,
     currentTimes: Array<number>,
-    width: number,
-    height: number
+    videoWidth: number,
+    canvasWidth: number
   ): Promise<Array<HTMLCanvasElement>>
 }
 
@@ -15,13 +15,17 @@ interface VideoFramesToCanvasArray {
 const videoFramesToCanvasArray: VideoFramesToCanvasArray = (
   videoSrc,
   currentTimes,
-  width,
-  height
+  videoWidth,
+  canvasWidth
 ) => {
   const canvasArray: Array<Promise<HTMLCanvasElement>> = currentTimes.map((currentTime) => {
     return new Promise<HTMLCanvasElement>((resolve, _reject) => {
       const video: HTMLVideoElement = document.createElement('video');
       video.src = videoSrc;
+      video.autoplay = true;
+      video.muted = true;
+      video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+      video.setAttribute('playsinline', 'playsinline');
 
       if (browser.name === 'safari') {
         // for webkit, wait for onloadedmeta date before setting currentTime.
@@ -34,10 +38,13 @@ const videoFramesToCanvasArray: VideoFramesToCanvasArray = (
 
       video.addEventListener('seeked', () => {
         const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
+        canvas.width = canvasWidth;
+        canvas.height = canvasWidth;
         const ctx = canvas.getContext('2d');
-        ctx?.drawImage(video,  0, 0);
+        ctx?.drawImage(video, 
+          0, 0, videoWidth, videoWidth,
+          0, 0, canvasWidth, canvasWidth
+          );
         resolve(canvas);
       }, { once: true });
     });
