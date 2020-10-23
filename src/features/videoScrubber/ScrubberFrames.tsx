@@ -1,8 +1,10 @@
 import { useRef, useEffect, useMemo, useState } from 'react';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import videoFramesToCanvasArray from 'features/videoScrubber/helpers/videoFramesToCanvasArray';
 import type { RootState } from 'app/rootReducer';
-import videoFramesToCanvasArray from 'utils/videoFramesToCanvasArray';
+
+import type { ScrubberState } from 'features/videoScrubber/scrubberSlice';
 import 'features/videoScrubber/scrubberStyles.css';
 
 interface ScrubberFramesProps {
@@ -10,7 +12,7 @@ interface ScrubberFramesProps {
   width: number
   height: number
   duration: number
-  scrubberFramesMax: number
+  canvasWidth: number
 }
 
 // todo: add wait animation while 'videoFramesToCanvasArray' is resolving.
@@ -19,15 +21,16 @@ const ScrubberFrames: React.FC<ScrubberFramesProps> = ({
   width,
   height,
   duration,
-  scrubberFramesMax
+  canvasWidth
 }) => {
-	const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  // avoid refs when possible--canvasFrames can be state. perhaps consider moving to redux?
-  const [canvasFrames, setCanvasFrames] = useState<Array<HTMLCanvasElement>>([]);
-	const currentScrubberFrame = useSelector<RootState, number>(
-		(state) => state.scrubber.currentScrubberFrame
+	const [ canvasFrames, setCanvasFrames ] = useState<Array<HTMLCanvasElement>>([]);
+	const { currentScrubberFrame, scrubberFramesMax } = useSelector<RootState, ScrubberState>(
+    (state) => state.scrubber
 	);
-
+	const [ debug, setDebug ] = useState<string>('');
+	const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  // todo: move to scrubberSlice
+  //const [canvasFrames, setCanvasFrames] = useState<Array<HTMLCanvasElement>>([]);
 	// Create array of temporal offsets into video by dividing its duration
 	// by the number of video frame samples that can be scrubbed.
 	// The more frame samples, the smoother the scrubbing.
@@ -46,23 +49,28 @@ const ScrubberFrames: React.FC<ScrubberFramesProps> = ({
 			videoSrc,
 			currentTimes,
 			width,
-      height
+      canvasWidth
     ).then(setCanvasFrames);
 	}, [videoSrc, currentTimes, width, height]);
 
+
 	useEffect(() => {
+		let value =  `canvasFrames.length: ${canvasFrames.length} `
 		if (canvasRef.current !== null && canvasFrames.length) {
+			value = `${value} || above drawImage`;
 			const ctx = canvasRef.current.getContext('2d');
 			ctx?.drawImage(canvasFrames[currentScrubberFrame], 0, 0);
 		}
+		setDebug(value);
 	}, [canvasFrames, currentScrubberFrame]);
 
 	return(
 		<div className='scrubberFrames-container'>
+			{`debug: ${debug}`}
 			<canvas
 				ref={canvasRef}
-				width={width}
-				height={height}
+				width={canvasWidth}
+				height={canvasWidth}
 			/>
 		</div>
 	);

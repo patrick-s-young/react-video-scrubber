@@ -1,46 +1,35 @@
-import { useEffect, useState } from 'react';
 import * as React from 'react';
 import ScrubberFrames from 'features/videoScrubber/ScrubberFrames';
 import ScrubberSlider from 'features/videoScrubber/ScrubberSlider';
-import loadVideoMetadata from 'utils/loadVideoMetadata';
-import type { VideoMetadata } from 'utils/loadVideoMetadata';
 import 'features/videoScrubber/scrubberStyles.css';
 
 interface ScrubberProps {
-  videoSrc: string
-  scrubberFramesMax: number
+  src: string
+  duration: number
+  width: number
+  height: number
 }
 
 const Scrubber: React.FC<ScrubberProps> = ({
-  videoSrc,
-  scrubberFramesMax
-}) => {
-  const [videoData, setVideoData] = useState<VideoMetadata | null>(null);
-  const [error, setError] = useState<string | null>(null)
+  src,
+  duration,
+  width,
+  height }) => {
 
-  useEffect(() => {
-    loadVideoMetadata(videoSrc, 2000)
-      .then(setVideoData)
-      .catch(setError);
-  }, []);
+  const canvasWidth: number = width > window.innerWidth ? window.innerWidth : width;
 
   return (
     <div className='scrubber-container'>
-      {videoData !== null &&
-        <div style={{ width: videoData.videoWidth + 'px' }}>
+        <div>
           <ScrubberFrames
-            videoSrc={videoSrc}
-            width={videoData.videoWidth}
-            height={videoData.videoHeight}
-            duration={videoData.duration}
-            scrubberFramesMax={scrubberFramesMax}
+            videoSrc={src}
+            width={width}
+            height={height}
+            duration={duration}
+            canvasWidth={canvasWidth}
           />
-          <ScrubberSlider
-            scrubberFramesMax={scrubberFramesMax}
-          />
+          <ScrubberSlider />
         </div>
-      }
-      {error !== null && <div>{error}</div>}
     </div>
   );
 }
