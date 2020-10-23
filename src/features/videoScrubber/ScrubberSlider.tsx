@@ -1,21 +1,16 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentScrubberFrame } from 'features/videoScrubber/scrubberSlice';
+import type { CurrentScrubberFrame, ScrubberState } from 'features/videoScrubber/scrubberSlice';
 import type { RootState } from 'app/rootReducer';
-import { setCurrentScrubberFrame, CurrentScrubberFrame } from 'features/videoScrubber/scrubberSlice';
 import 'features/videoScrubber/scrubberStyles.css';
 
-interface ScrubberSliderProps {
-  scrubberFramesMax: number
-}
 
-const ScrubberSlider: React.FC<ScrubberSliderProps> = ({
-  scrubberFramesMax
-}) => {
+const ScrubberSlider: React.FC = () => {
   const dispatch = useDispatch();
-  const currentScrubberFrame = useSelector<RootState, number>(
-    (state) => state.scrubber.currentScrubberFrame
+  const { currentScrubberFrame, scrubberFramesMax } = useSelector<RootState, ScrubberState>(
+    (state) => state.scrubber
   );
-
   const onSlideHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCurrentScrubberFrame(parseInt(e.target.value) as CurrentScrubberFrame));
   };
