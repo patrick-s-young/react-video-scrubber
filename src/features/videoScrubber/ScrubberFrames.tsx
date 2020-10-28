@@ -55,7 +55,7 @@ const ScrubberFrames: React.FC<ScrubberFramesProps> = ({
 
 
 	useEffect(() => {
-		let value =  `debug: canvasFrames[].length = ${canvasFrames.length} `
+		let value =  `debug: canvasFramesArrayLength = ${canvasFrames.length} `
 		if (canvasRef.current !== null && canvasFrames.length) {
 			value = `${value} || above drawImage`;
 			const ctx = canvasRef.current.getContext('2d');
