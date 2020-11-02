@@ -14,7 +14,7 @@ phases:
     build:
       commands:
         - echo building...
-        - npm run build
+        - npm run-script build
 artifacts:
   files:
     - "**/*"
