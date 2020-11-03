@@ -9,12 +9,15 @@ phases:
     pre_build:
       commands:
         - echo installing dependencies
-        - npm
+        - npm install
     
     build:
       commands:
         - echo building...
         - npm run-script build
+    post_build:
+      commands:
+        - ls
 artifacts:
   files:
     - "**/*"
