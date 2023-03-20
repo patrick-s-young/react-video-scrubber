@@ -27,7 +27,7 @@ const ScrubberFrames: React.FC<ScrubberFramesProps> = ({
 	const { currentScrubberFrame, scrubberFramesMax } = useSelector<RootState, ScrubberState>(
     (state) => state.scrubber
 	);
-	const [ debug, setDebug ] = useState<string>('');
+
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
   // todo: move to scrubberSlice
   //const [canvasFrames, setCanvasFrames] = useState<Array<HTMLCanvasElement>>([]);
@@ -55,18 +55,15 @@ const ScrubberFrames: React.FC<ScrubberFramesProps> = ({
 
 
 	useEffect(() => {
-		let value =  `debug: canvasFramesArrayLength = ${canvasFrames.length} `
 		if (canvasRef.current !== null && canvasFrames.length) {
-			value = `${value} || above drawImage`;
+
 			const ctx = canvasRef.current.getContext('2d');
 			ctx?.drawImage(canvasFrames[currentScrubberFrame], 0, 0);
 		}
-		setDebug(value);
 	}, [canvasFrames, currentScrubberFrame]);
 
 	return(
 		<div className='scrubberFrames-container'>
-			{`debug: ${debug}`}
 			<canvas
 				ref={canvasRef}
 				width={canvasWidth}

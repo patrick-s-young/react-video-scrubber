@@ -39,6 +39,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.m?js/,
+        resolve: { fullySpecified: false },
       }
     ]
   },
@@ -48,7 +52,7 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'public')
+    static: path.join(__dirname, 'public')
   },
   devtool: 'inline-source-map'
 };
