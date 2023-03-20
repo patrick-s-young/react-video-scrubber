@@ -5,7 +5,7 @@ import Scrubber from 'features/videoScrubber/Scrubber';
 import { VideoUpload } from 'features/userVideo/VideoUpload';
 import type { VideoState } from 'features/userVideo/videoSlice';
 import type { RootState } from 'app/rootReducer';
-import 'app/app.css';
+import './app.css';
 
 const App: React.FC = () => {
 	// conditional render <VideoUpload> or <MosaicTiles>
@@ -19,7 +19,8 @@ const App: React.FC = () => {
 	}
 	// <VideoUpload> is a mock for user-initiated video uploads
 	return (
-			<div className='app-container' style={{width: `${appScreenWidth}px`}}>
+<div className='app'>
+			<div className='app-container' style={{ width }}>
 				{!videoReady
 					? <VideoUpload onVideoSelectedCallback={onVideoSelectedCallback}/>
 					: <Scrubber
@@ -29,6 +30,7 @@ const App: React.FC = () => {
 							height={height}/>
 				}
 			</div>
+    </div>
 	);
 }
 			
