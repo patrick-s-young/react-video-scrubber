@@ -11,8 +11,8 @@ Make sure you have [Node.js](http://nodejs.org/) installed.
 ```sh
 git clone https://github.com/patrick-s-young/react-video-scrubber.git # or clone your own fork
 cd react-video-scrubber
-npm install
-npm start
+yarn install
+yarn start
 ```
 
 ## Built With
